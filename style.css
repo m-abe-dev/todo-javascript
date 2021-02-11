@@ -39,7 +39,7 @@ ul {
   margin: auto;
 }
 
-/* ----- todo_header ----- */
+/* ----- todo header ----- */
 
 .todo_header {
   background-image: linear-gradient(
@@ -51,8 +51,107 @@ ul {
   background-size: cover;
   padding: 50px;
   color: #fff;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
 }
 
-.input::placeholder {
+.todo_header .overflow h1 {
+  margin: 0;
+  animation: slideInDate 0.5s ease both;
+}
+
+@keyframes slideInDate {
+  0% {
+    transform: translateX(-249px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* ----- todo input ------ */
+
+.todo_input {
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 1px 10px #777;
+  background: #fff;
+  transform: translateY(-40%);
+}
+
+.todo_input input {
+  /* ボタンの分減算する */
+  width: calc(100% - 58px);
+  padding: 10px;
+  outline: none;
+  display: inline-block;
+}
+
+.todo_input input::placeholder {
+  font-family: "M PLUS Rounded 1c", sans-serif;
   color: #d5d5d5;
+}
+
+.todo_input .todo_btn {
+  position: absolute;
+  display: inline-block;
+  border: none;
+  padding: 9px 12px;
+  background-color: coral;
+  text-transform: uppercase;
+  outline: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+/* ----- todo list ------ */
+
+.todo_list li {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 127, 80);
+  color: #fff;
+  /* margin: 10px 0; */
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
+}
+
+.todo_list .text {
+  margin: auto;
+}
+
+.todo_list .options {
+  margin-right: -115px;
+  transition: margin-right 0.3s ease;
+}
+
+.todo_list li:hover .options {
+  margin-right: 0;
+}
+
+.todo_list .options span {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  margin: -3px;
+  background-color: #000;
+  transition: background-color 0.3s;
+}
+
+.todo_list .options span:hover:nth-child(1) {
+  background-color: antiquewhite;
+}
+
+.todo_list .options span:hover:nth-child(2) {
+  background-color: chocolate;
+}
+
+.todo_list .options span:hover:nth-child(3) {
+  background-color: rgb(102, 82, 56);
 }
