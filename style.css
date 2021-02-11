@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c");
+
+/* ----- defalut ----- */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "M PLUS Rounded 1c", sans-serif;
+  background: radial-gradient(ellipse at center, #f15a59, #eb3939);
+  height: 100vh;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+.todo {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+}
+
+.container {
+  background: #fff;
+  width: 100%;
+  border-radius: 20px;
+  padding-bottom: 40px;
+}
+
+.wrap {
+  width: 80%;
+  margin: auto;
+}
+
+/* ----- todo_header ----- */
+
+.todo_header {
+  background-image: linear-gradient(
+      to right bottom,
+      rgba(187, 139, 49, 0.5),
+      rgba(202, 177, 66, 0.5)
+    ),
+    url("https://source.unsplash.com/bIhpiQA009k");
+  background-size: cover;
+  padding: 50px;
+  color: #fff;
+}
+
+.input::placeholder {
+  color: #d5d5d5;
+}

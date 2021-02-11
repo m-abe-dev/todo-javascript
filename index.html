@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <title>ToDoList</title>
+</head>
+<body>
+    <div class="todo">
+        <div class="container">
+            <!-- header -->
+            <header class="todo_header">
+                <div class="overflow">
+                    <h1><span id="todaysDay">Monday</span> To Do List</h1>
+                    <span id="todaysDate">August 1, 2020</span>
+                </div>
+            </header>
+            <!-- todo textbox -->
+            <div class="todo_input wrap">
+                <form action="" id="form">
+                    <input type="text" id="todoInput" placeholder="今日やること...">
+                    <button class="todo_btn">追加</button>
+                </form>
+            </div>
+            <!-- todo list -->
+            <ul class="todo_list wrap">
+                <li>
+                    <span class="text">こんにちは</span>
+                    <div class="options">
+                        <span id="check"><i class="fa fa-check"></i></span>
+                        <span id="edit"><i class="fa fa-edit"></i></span>
+                        <span id="trash"><i class="fa fa-trash"></i></span>
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+
+    </div>
+
+
+
+<!-- JavaScriptのコード読み込み -->
+<script src="script.js"></script>
+</body>
+</html>
