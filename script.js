@@ -1,3 +1,38 @@
+const date = new Date();
+
+const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Satuday",
+];
+
+const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+]
+
+const todaysDay = document.getElementById("todaysDay");
+const todayDate = document.getElementById("todaysDate");
+// 曜日を取得
+todaysDay.textContent = days[date.getDay()];
+// 月と日付を取得
+todaysDate.textContent = `${months[date.getMonth()]}.${date.getDate()}`;
+
+
 const formEl = document.getElementById("form");
 const todoInputEl = document.getElementById("todoInput");
 const todoListContainer = document.querySelector(".todo_list");
@@ -12,6 +47,7 @@ function displayTodoDOM(todo) {
         <span id="check"><i class="fa fa-check"></i></span>
         <span id="edit"><i class="fa fa-edit"></i></span>
         <span id="trash"><i class="fa fa-trash"></i></span>
+        <span id="later"><i class="far fa-clock"></i></span>
     </div>
     `;
     todoListContainer.appendChild(liEl);
@@ -39,6 +75,14 @@ function itemToEdit(item) {
         todoInputEl.value = todoLiEl.textContent.trim();
         todoLiEl.remove();
         editItemFromLocalStorage(item);
+    }
+}
+
+// function ユーザーがタスクを完了
+function itemDone(item) {
+    if (item.classList.contains("fa-check") || item.id === "check") {
+        const crossItem = item.closest("li");
+        crossItem.firstElementChild.classList.add("completed");
     }
 }
 
@@ -87,6 +131,7 @@ document.addEventListener("DOMContentLoaded", displayDataFromLocalStorage);
 todoListContainer.addEventListener("click", (e) => {
     itemToDelete(e.target);
     itemToEdit(e.target);
+    itemDone(e.target)
 });
 
 // ユーザーがタスクを追加した時
