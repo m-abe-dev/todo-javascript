@@ -2,7 +2,7 @@ const formEl = document.getElementById("form");
 const todoInputEl = document.getElementById("todoInput");
 const todoListContainer = document.querySelector(".todo_list");
 
-// function ユーザーがtodoを追加した時
+// function ユーザーがtodoタスクを追加
 function displayTodoDOM(todo) {
     const liEl = document.createElement("li");
     liEl.classList.add("bounceIn");
@@ -17,7 +17,32 @@ function displayTodoDOM(todo) {
     todoListContainer.appendChild(liEl);
 }
 
-// function local storage
+// function ユーザーがタスクを消去
+function itemToDelete(item) {
+    if (item.classList.contains("fa-trash") || item.id === "trash") {
+        const todoLiEl = item.closest("li");
+        todoLiEl.classList.remove("bounceIn");
+        todoLiEl.classList.add("bounceOut");
+        // liタグ消去
+        setTimeout(() => {
+            todoLiEl.remove();
+        }, 1000);
+        // local storageから消去
+        deleteDataFromLocalStorage(item)
+    }
+}
+
+// function ユーザーがタスクを編集
+function itemToEdit(item) {
+    if (item.classList.contains("fa-edit") || item.id === "edit") {
+        const todoLiEl = item.closest("li");
+        todoInputEl.value = todoLiEl.textContent.trim();
+        todoLiEl.remove();
+        editItemFromLocalStorage(item);
+    }
+}
+
+// function local storageにタスクを保存
 function storeToLocalStorage(todo) {
     let todoArr;
     if(localStorage.getItem("todos") === null){
@@ -29,6 +54,7 @@ function storeToLocalStorage(todo) {
     localStorage.setItem("todos", JSON.stringify(todoArr));
 }
 
+// function local storageからタスクを取得
 function displayDataFromLocalStorage () {
     const todoArr = JSON.parse(localStorage.getItem("todos"));
     for (const todo of todoArr) {
@@ -36,14 +62,34 @@ function displayDataFromLocalStorage () {
     }
 }
 
-// event
+// function local storageからタスクを消去
+function deleteDataFromLocalStorage(item) {
+    const todoArr = JSON.parse(localStorage.getItem("todos"));
+    const todoLiEl = item.closest("li");
+
+    // 残りのtodoタスクを取得
+    const todoItemLeft = todoArr.filter(todo => todoLiEl.textContent.trim() !== todo);
+    // 残りのtodoタスクをJSONで追加
+    localStorage.setItem("todos", JSON.stringify(todoItemLeft));
+}
+
+// function local storageからタスクを編集
+function editItemFromLocalStorage(item) {
+    deleteDataFromLocalStorage(item);
+}
+
+// event　ーーーーーーーーーーーーーーーーーーー
 
 // local storageのDOMツリーの構築が完了した時に発火
 document.addEventListener("DOMContentLoaded", displayDataFromLocalStorage);
 
+// ユーザーが各ボタンをclickした時
+todoListContainer.addEventListener("click", (e) => {
+    itemToDelete(e.target);
+    itemToEdit(e.target);
+});
 
-
-
+// ユーザーがタスクを追加した時
 formEl.addEventListener("submit", (e) => {
     e.preventDefault();
     const inputTodo = todoInputEl.value;
@@ -53,4 +99,6 @@ formEl.addEventListener("submit", (e) => {
         displayTodoDOM(inputTodo);
         storeToLocalStorage(inputTodo);
     }
+    // 入力したタスクをreset
+    formEl.reset();
 });
