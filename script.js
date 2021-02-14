@@ -36,6 +36,7 @@ todaysDate.textContent = `${months[date.getMonth()]}.${date.getDate()}`;
 const formEl = document.getElementById("form");
 const todoInputEl = document.getElementById("todoInput");
 const todoListContainer = document.querySelector(".todo_list");
+const todoListLater = document.querySelector(".todo_list_later");
 
 // function ユーザーがtodoタスクを追加
 function displayTodoDOM(todo) {
@@ -53,6 +54,21 @@ function displayTodoDOM(todo) {
     todoListContainer.appendChild(liEl);
 }
 
+// function ユーザーがtodoタスクを後回しに追加
+function displayTodoDOMLater(todo) {
+    const liEl = document.createElement("li");
+    liEl.classList.add("bounceIn");
+    liEl.innerHTML = `
+    <span class="text">${todo}</span>
+    <div class="options">
+        <span id="check"><i class="fa fa-check"></i></span>
+        <span id="edit"><i class="fa fa-edit"></i></span>
+        <span id="trash"><i class="fa fa-trash"></i></span>
+    </div>
+    `;
+    todoListLater.appendChild(liEl);
+}
+
 // function ユーザーがタスクを消去
 function itemToDelete(item) {
     if (item.classList.contains("fa-trash") || item.id === "trash") {
@@ -64,7 +80,7 @@ function itemToDelete(item) {
             todoLiEl.remove();
         }, 1000);
         // local storageから消去
-        deleteDataFromLocalStorage(item)
+        deleteDataFromLocalStorage(item);
     }
 }
 
@@ -83,6 +99,19 @@ function itemDone(item) {
     if (item.classList.contains("fa-check") || item.id === "check") {
         const crossItem = item.closest("li");
         crossItem.firstElementChild.classList.add("completed");
+    }
+}
+
+// function ユーザーがタスクを後回し
+function itemToLater(item) {
+    if (item.classList.contains("fa-clock") || item.id === "later") {
+        const todoLiEl = item.closest("li");
+        const todoItem = item.closest("li");
+        const todoLater = todoItem.textContent;
+        setTimeout(() => {
+            todoLiEl.remove();
+        }, 100);
+        displayTodoDOMLater(todoLater);
     }
 }
 
@@ -122,7 +151,7 @@ function editItemFromLocalStorage(item) {
     deleteDataFromLocalStorage(item);
 }
 
-// event　ーーーーーーーーーーーーーーーーーーー
+// event　-----------------------------------------------
 
 // local storageのDOMツリーの構築が完了した時に発火
 document.addEventListener("DOMContentLoaded", displayDataFromLocalStorage);
@@ -131,12 +160,22 @@ document.addEventListener("DOMContentLoaded", displayDataFromLocalStorage);
 todoListContainer.addEventListener("click", (e) => {
     itemToDelete(e.target);
     itemToEdit(e.target);
-    itemDone(e.target)
+    itemDone(e.target);
+    itemToLater(e.target);
+});
+
+// ユーザーがWatch laterの各ボタンをclickした時
+todoListLater.addEventListener("click", (e) => {
+    itemToDelete(e.target);
+    itemToEdit(e.target);
+    itemDone(e.target);
+    itemToLater(e.target);
 });
 
 // ユーザーがタスクを追加した時
 formEl.addEventListener("submit", (e) => {
     e.preventDefault();
+    // ユーザーの入力した内容
     const inputTodo = todoInputEl.value;
     if (!inputTodo) {
         alert("タスクを記入して下さい")
