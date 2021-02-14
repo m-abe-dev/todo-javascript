@@ -25,14 +25,17 @@ ul {
   display: flex;
   justify-content: center;
   padding: 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
   overflow: hidden;
 }
 
 .container {
-  background: #fff;
+  background: rgb(218, 226, 198);
   width: 100%;
   border-radius: 20px;
   padding-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .wrap {
@@ -162,6 +165,77 @@ ul {
 }
 
 .todo_list .options span:hover:nth-child(4) {
+  background-color: rgb(166, 144, 218);
+}
+
+/* ----- todo list later ------ */
+
+.container_later {
+  background: rgb(218, 226, 198);
+  width: 100%;
+  border-radius: 20px;
+  padding-bottom: 40px;
+}
+
+.todo_later {
+  padding: 0px 50px 10px;
+  color: #fff;
+}
+
+.todo_list_later li {
+  display: flex;
+  align-items: center;
+  background-color: rgb(255, 127, 80);
+  color: #fff;
+  margin: 10px 0;
+  border-radius: 5px;
+  width: 100%;
+  height: 40px;
+  overflow: hidden;
+}
+
+.todo_list_later .text {
+  margin: auto;
+}
+
+.todo_list_later .options {
+  margin-right: -115px;
+  transition: margin-right 0.3s ease;
+}
+
+.todo_list_later li:hover .options {
+  margin-right: 0;
+}
+
+.todo_list_later .options span {
+  height: 40px;
+  width: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: inline-block;
+  cursor: pointer;
+  margin: -3px;
+  background-color: #000;
+  transition: background-color 0.3s;
+}
+
+.todo_list_later .options span:hover:nth-child(1) {
+  background-color: antiquewhite;
+}
+
+.todo_list_later .options span:hover:nth-child(2) {
+  background-color: chocolate;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.todo_list_later .options span:hover:nth-child(3) {
+  background-color: rgb(102, 82, 56);
+}
+
+.todo_list_later .options span:hover:nth-child(4) {
   background-color: rgb(166, 144, 218);
 }
 
